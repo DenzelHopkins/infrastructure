@@ -1,0 +1,16 @@
+services:
+  database:
+    image: mongo
+    ports:
+    - "27017:27017"
+    container_name: mongo
+  webserver:
+    image: ghcr.io/denzelhopkins/kotlin_web_api:latest
+    environment:
+      - spring.data.mongodb.host=mongo
+      - spring.data.mongodb.port=27017
+      - spring.data.mongodb.database=mongo
+      - server.port=8080
+    ports:
+    - "8080:8080"
+    container_name: kotlin
