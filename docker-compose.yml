@@ -1,24 +1,26 @@
 services:
-  database:
+  mongo:
     image: mongo
     ports:
-    - "27017:27017"
+    - "${MONGO_PORT}:${MONGO_PORT}"
     container_name: mongo
   django:
     image: ghcr.io/denzelhopkins/django:latest
     ports:
-    - "8000:8000"
+    - "${DJANGO_PORT}:${DJANGO_PORT}"
     container_name: django
   vue:
     image: ghcr.io/denzelhopkins/vue:latest
+    ports:
+    - "${VUE_PORT}:${VUE_PORT}"
     container_name: vue
   kotlin:
     image: ghcr.io/denzelhopkins/kotlin:latest
     environment:
       - spring.data.mongodb.host=mongo
-      - spring.data.mongodb.port=27017
+      - spring.data.mongodb.port=${MONGO_PORT}
       - spring.data.mongodb.database=mongo
-      - server.port=1000
+      - server.port=${KOTLIN_PORT}
     ports:
-    - "1000:1000"
+    - "${KOTLIN_PORT}:${KOTLIN_PORT}"
     container_name: kotlin
