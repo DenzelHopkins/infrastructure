@@ -7,8 +7,8 @@ services:
     ports:
       - "${MONGO_PORT}:${MONGO_PORT}"
     container_name: mongo
-  maria:
-    image: ghcr.io/denzelhopkins/mariadb:latest
+  mariadb:
+    image: mariadb:10.7.8
     environment:
       - MARIADB_DATABASE=test-database
       - MARIADB_USER=example-user
@@ -16,7 +16,7 @@ services:
       - MARIADB_ROOT_PASSWORD=my-secret-pw
     ports:
       - "${MARIA_PORT}:${MARIA_PORT}"
-    container_name: maria
+    container_name: mariadb
   django:
     image: ghcr.io/denzelhopkins/django:latest
     ports:
