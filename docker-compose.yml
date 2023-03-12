@@ -1,18 +1,31 @@
 services:
   mongo:
     image: mongo
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=mongoadmin
+      - MONGO_INITDB_ROOT_PASSWORD=secret
     ports:
-    - "${MONGO_PORT}:${MONGO_PORT}"
+      - "${MONGO_PORT}:${MONGO_PORT}"
     container_name: mongo
+  maria:
+    image: ghcr.io/denzelhopkins/mariadb:latest
+    environment:
+      - MARIADB_DATABASE=test-database
+      - MARIADB_USER=example-user
+      - MARIADB_PASSWORD=my_cool_secret
+      - MARIADB_ROOT_PASSWORD=my-secret-pw
+    ports:
+      - "${MARIA_PORT}:${MARIA_PORT}"
+    container_name: maria
   django:
     image: ghcr.io/denzelhopkins/django:latest
     ports:
-    - "${DJANGO_PORT}:${DJANGO_PORT}"
+      - "${DJANGO_PORT}:${DJANGO_PORT}"
     container_name: django
   vue:
     image: ghcr.io/denzelhopkins/vue:latest
     ports:
-    - "${VUE_PORT}:${VUE_PORT}"
+      - "${VUE_PORT}:${VUE_PORT}"
     container_name: vue
   kotlin:
     image: ghcr.io/denzelhopkins/kotlin:latest
@@ -22,5 +35,5 @@ services:
       - spring.data.mongodb.database=mongo
       - server.port=${KOTLIN_PORT}
     ports:
-    - "${KOTLIN_PORT}:${KOTLIN_PORT}"
+      - "${KOTLIN_PORT}:${KOTLIN_PORT}"
     container_name: kotlin
